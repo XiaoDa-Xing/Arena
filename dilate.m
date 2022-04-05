@@ -41,6 +41,6 @@ function dilateMap=dilate(obtainMap)
     
     dilateMap(48:50,41:43)=0;
     
-    zhanshi(dilateMap);
+    %zhanshi(dilateMap);
 end
                 

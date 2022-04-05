@@ -2,12 +2,10 @@ classdef Policy < handle
     properties
         obtainMap
         dilateMap
-        map
+        startPosP
         endPosP
         path
         obstacles
-        obstacle
-        h
     end
     
     properties
@@ -21,51 +19,39 @@ classdef Policy < handle
         
         function self = Policy()
             self.obtainMap=zeros(50,50);
-            self.map.XYMAX=50;
         end
         
         function action=action(self,observation)
             if observation.collide
-                action=[-10,rand(1)-0.5];
+                action=[rand(10)-0.5,rand(1)-0.5];
             else
                 action=[10,rand(1)-0.5];
             end
             %action=[0,10];
             
-            self.obstacle=[];
-            
             self.obtainMap=double(observation.scanMap'|self.obtainMap);
             self.dilateMap=dilate(self.obtainMap);
             self.dilateMap=border(self.dilateMap);
             
-            for i=1:50 %遍历map数组，是-1的画红叉
-                for j=1:50
-                    if self.dilateMap(i,j) == 1
-                        self.obstacle=[self.obstacle;[j i]];
-                        %plot(j-0.5,i-0.5,'rx');%在每一格是障碍物的地方画红色叉
-                    end
-                end
-            end
+            self.startPosP=[round(obsercation.agent.x),round(obsercation.agent.y)];
+            self.endPosP=[round(obsercation.endpos.x),round(obsercation.agent.y)];
+            self.path
             
-            self.map.start=[round(observation.agent.x),round(observation.agent.y)];
-            self.map.goal=[observation.endPos.x,observation.endPos.y];
-            self.path=Ax(self.obstacle,self.map,self.dilateMap');
-            
-            if length(self.path(:,1))>=1
-                %plot(close(:,2),close(:,1),'-c','LineWidth',2);
-                delete(self.h);
-                self.h=plot(self.viewerP1.ax,self.path(:,1)-0.5,self.path(:,2)-0.5,'-c','LineWidth',2);
-                %plot(path(:,1)-0.5,path(:,2)-0.5,'rx');
-            end
+            %self.dilate();
         end
         
+%         function dilate(self)
+%             for i=1:50
+%                 for j=1:50
+%                     if self.obtainMap(i,j)==1
+%                         self.dilateMap=
+                        
         
         function reset(self,observation)
             self.obtainMap=observation.scanMap;
             self.viewerP1=Viewer(50,50);
             %self.viewerP2=Viewer(50,50);
-            self.endPosP=observation.endPos;
-            %self.endPosP=[observation.endPos.x,observation.endPos.y];
+            %self.endPosP=observation.endPos;
             %self.plotEndPosP(self.viewerP1.ax);
             self.plotMapP(self.viewerP1.ax);
             %self.plotEndPosP(self.viewerP2.ax);
