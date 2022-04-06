@@ -1,4 +1,6 @@
 %% 从主程序中解包出来的action变化模型、可以作为测试时计算action变化使用
+%% 输入参数 (laststate,action) laststate=[x,y,h],action=[u,v]
+%% 输出参数 state=[x,y,h] 下一时刻状态
 function state=actionmodel(laststate,action)
 %state=[x,y,h]
 %action=[u,v]
