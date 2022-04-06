@@ -1,7 +1,7 @@
 clc;
 clear all;
 
-load('cmap.mat');
+load('a1map.mat');
 dilateMap=dilate2(mapdata);
 %zhanshi(mapdata);
 dilateMap=border(dilateMap);
@@ -30,6 +30,7 @@ end
 hold on
 
 path=Ax(obstacle,map,dilateMap');
+save('test.mat','path');
 
 if length(path(:,1))>=1
     %plot(close(:,2),close(:,1),'-c','LineWidth',2);
