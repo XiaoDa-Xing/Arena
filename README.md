@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # qlh fork
+=======
+# main branch（别删这行）
+>>>>>>> main
 
 ## Arena
 
@@ -10,4 +14,7 @@ push edition
 
 成功
 
+<<<<<<< HEAD
 加第五句话
+=======
+>>>>>>> main
