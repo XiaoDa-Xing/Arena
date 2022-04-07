@@ -3,9 +3,9 @@ clear all;
 
 load('a1map.mat');
 dilateMap=dilate2(mapdata);
-%zhanshi(mapdata);
+zhanshi(mapdata);
 dilateMap=border(dilateMap);
-zhanshi(dilateMap);
+%zhanshi(dilateMap);
 hold on;
 
 map.start=[2,3];
@@ -35,5 +35,6 @@ save('test.mat','path');
 if length(path(:,1))>=1
     %plot(close(:,2),close(:,1),'-c','LineWidth',2);
     plot(path(:,1)-0.5,path(:,2)-0.5,'-c','LineWidth',2);
+    plot(path(:,1),path(:,2),'-r','LineWidth',2);
     %plot(path(:,1)-0.5,path(:,2)-0.5,'rx');
 end
