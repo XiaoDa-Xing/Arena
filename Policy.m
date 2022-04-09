@@ -30,7 +30,7 @@ classdef Policy < handle
             else
                 action=[10,rand(1)-0.5];
             end
-            %action=[0,10];
+            action=[0,10];
             
             self.obstacle=[];
             

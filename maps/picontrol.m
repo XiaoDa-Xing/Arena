@@ -23,7 +23,7 @@ end
 for k = 1:1
     intergral = 0;
     last_error =0;
-    now_state=[1.5 3.5 3.14/3];
+    now_state=[1.5 3.5 3.14/4-0.5];
     kd =  500+30 *k;
     figure;
     plot(path(:,1),path(:,2),'r.');
@@ -55,7 +55,7 @@ for k = 1:1
         action = [1, pid_value/100];
         new_state = actionmodel(now_state,action);
         
-        plot(new_state(1),new_state(2),'g.');
+        plot(new_state(1),new_state(2),'b.');
         
         now_state = new_state;
     end

@@ -22,9 +22,9 @@ for i=1:MAX_X %遍历map数组，是-1的画红叉
             obstacle=[obstacle;[j i]];
             %plot(j-0.5,i-0.5,'rx');%在每一格是障碍物的地方画红色叉
         end
-%         if dilateMap(i,j) == 2
-%             plot(j-0.5,i-0.5,'rx');%在每一格是障碍物的地方画红色叉
-%         end
+        if dilateMap(i,j) == 2
+            plot(j-0.5,i-0.5,'rx');%在每一格是障碍物的地方画红色叉
+        end
     end
 end
 hold on
