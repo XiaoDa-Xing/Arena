@@ -3,7 +3,7 @@ close all;
 clc;
 
 %% 寻路部分
-load('c1map.mat');
+load('b1map.mat');
 dilateMap=dilate2(mapdata);
 dilateMap=border(dilateMap);
 zhanshi(mapdata);
@@ -32,6 +32,44 @@ end
 hold on
 
 path=Ax(obstacle,map,dilateMap');
+
+len=length(path(:,1));
+
+% for i=2:len-2
+%     kangle1=atan2((path(i-1,2)-path(i,2)),(path(i-1,1)-path(i,1)));
+%     kangle2=atan2((path(i,2)-path(i+1,2)),(path(i,1)-path(i+1,1)));
+%     dkangle=changerad(kangle1-kangle2);
+%     if dilateMap(path(i,2),path(i,1))==2 && abs(dkangle)>0.5
+%         path(i)=(path(i+1)+path(i-1))/2;
+%     end
+% end
+
+for i=2:len-2
+    kangle1=atan2((path(i-1,2)-path(i,2)),(path(i-1,1)-path(i,1)));
+    kangle2=atan2((path(i,2)-path(i+1,2)),(path(i,1)-path(i+1,1)));
+    dkangle=changerad(kangle1-kangle2);%dkangle为负则向右转
+    if path(i,2)==fix(path(i,2)) && path(i,1)==fix(path(i,1))
+        if dilateMap(path(i,2),path(i,1))==2 && abs(dkangle)>0.7
+            if abs(kangle2)==pi/2 && dilateMap(path(i,2),path(i,1)-1)==1 && dilateMap(path(i,2),path(i,1)+1)==1
+                path(i)=path(i+2)+(path(i-1)-path(i+2))/3*2;
+                path(i+1)=path(i+2)+(path(i-1)-path(i+2))/3;
+            elseif abs(kangle1)==pi/2
+                path(i)=path(i+1)+(path(i-2)-path(i+1))/3;
+                path(i-1)=path(i+1)+(path(i-2)-path(i+1))/3*2;
+            end
+        end
+    end
+        
+        
+    
+%     if dilateMap(path(i,2),path(i,1))==2 && abs(dkangle)>0.5
+%         path(i)=path(i+1)+(path(i-2)-path(i+1))/3;
+%         path(i-1)=path(i+1)+(path(i-2)-path(i+1))/3*2;
+%     end
+end
+
+
+
 path=path-0.5;
 
 if length(path(:,1))>=1
@@ -50,6 +88,9 @@ fis=readfis('arenafuz.fis');
 %最优路径的插值
 pathin=zeros(9,2);
 len=length(path(:,1));
+
+
+
 for i=1:len-1
     k=10*i-9;
     for j=1:9
@@ -62,7 +103,7 @@ end
 intergral = 0;
 last_error =0;
 %now_state=[1.5 3.5 3.14/4+pi+pi+1.1];
-now_state=[3+0.5 3.5+0.5 -0.03+2*pi];
+now_state=[3+0.5 3.5+0.5 -0.03];
 
 fuzflag=0;
 
@@ -105,7 +146,7 @@ for i=1:length(path)*0.5
 %     else
 %         flag=0;
 %     end
-    if  abs(dangle1)>0.6 || abs(dangle2)>0.6
+    if  abs(dangle1)>0.35 || abs(dangle2)>0.35
         fuzflag=1;
     end
     

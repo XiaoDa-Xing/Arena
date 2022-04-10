@@ -1,5 +1,0 @@
-
-
-x = [1.5*pi, 1.25*pi 0.8*pi 2.8*pi 3.5*pi pi];
-x = mod(x,2*pi);
-x = x.*(0<=x & x <= pi) + (x - 2*pi).*(pi<x & x<2*2*pi)   % x in (-pi,pi]
