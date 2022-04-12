@@ -3,7 +3,7 @@ close all;
 clc;
 
 %% 寻路部分
-load('b1map.mat');
+load('b2map.mat');
 dilateMap=dilate2(mapdata);
 dilateMap=border(dilateMap);
 zhanshi(mapdata);
@@ -68,6 +68,7 @@ for i=2:len-2
 %     end
 end
 
+path=[path;map.start];
 
 
 path=path-0.5;
@@ -103,7 +104,7 @@ end
 intergral = 0;
 last_error =0;
 %now_state=[1.5 3.5 3.14/4+pi+pi+1.1];
-now_state=[3+0.5 3.5+0.5 -0.03];
+now_state=[2 3 -0.03];
 
 fuzflag=0;
 
